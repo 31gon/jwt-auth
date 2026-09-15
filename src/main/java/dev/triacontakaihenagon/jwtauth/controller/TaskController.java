@@ -36,8 +36,7 @@ public class TaskController {
 
     @PostMapping
     public TaskResponse postTasks(@RequestBody @Valid TaskRequest taskRequest) {
-        Task task = new Task(taskRequest);
-        return new TaskResponse(taskService.createTask(task));
+        return new TaskResponse(taskService.createTask(taskRequest));
     }
 
     @DeleteMapping("/{id}")

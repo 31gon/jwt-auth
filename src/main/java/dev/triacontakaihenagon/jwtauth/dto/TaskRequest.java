@@ -10,4 +10,5 @@ public class TaskRequest {
     @NotBlank
     private String title;
     private boolean done;
+    private Long userId;
 }

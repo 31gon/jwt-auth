@@ -26,6 +26,10 @@ public class Task {
     private boolean done;
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
