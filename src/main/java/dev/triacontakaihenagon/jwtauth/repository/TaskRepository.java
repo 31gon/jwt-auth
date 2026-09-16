@@ -1,5 +1,6 @@
 package dev.triacontakaihenagon.jwtauth.repository;
 
+import dev.triacontakaihenagon.jwtauth.controller.UserController;
 import dev.triacontakaihenagon.jwtauth.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 

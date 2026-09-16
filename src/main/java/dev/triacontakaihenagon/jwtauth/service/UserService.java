@@ -42,4 +42,8 @@ public class UserService {
         existingUser.setRole(updatedUser.getRole());
         return userRepository.save(existingUser);
     }
+
+    public Optional<User> getCurrentUser(String username) {
+        return userRepository.findByUserName(username);
+    }
 }

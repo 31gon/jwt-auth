@@ -7,6 +7,8 @@ import dev.triacontakaihenagon.jwtauth.exception.TaskNotFoundException;
 import dev.triacontakaihenagon.jwtauth.exception.UserNotFoundException;
 import dev.triacontakaihenagon.jwtauth.repository.TaskRepository;
 import dev.triacontakaihenagon.jwtauth.repository.UserRepository;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,15 +40,26 @@ public class TaskService {
         return taskRepository.findById(id);
     }
     public void deleteTask(Long id) {
-        if (taskRepository.existsById(id)) taskRepository.deleteById(id);
-        else throw new TaskNotFoundException("Task with " + id + " not found ");
+        Task existingTask = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException("Task with " + id + " not found"));
+
+        if (existingTask.getUser().getUserName().equals(getCurrentUsername())) taskRepository.deleteById(id);
+        else throw new AccessDeniedException("You do not own this task");
     }
 
     public Task updateTask(Long id, Task updatedTask) {
         Task existingTask = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException("Task with "+ id +" not found "));
+
+        if (!existingTask.getUser().getUserName().equals(getCurrentUsername())) {
+            throw new AccessDeniedException("You do not own this task");
+        }
+
         existingTask.setTitle(updatedTask.getTitle());
         existingTask.setDone(updatedTask.isDone());
         return taskRepository.save(existingTask);
+    }
+    private String getCurrentUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }
