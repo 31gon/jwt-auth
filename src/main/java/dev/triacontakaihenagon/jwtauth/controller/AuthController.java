@@ -4,6 +4,7 @@ import dev.triacontakaihenagon.jwtauth.dto.LoginRequest;
 import dev.triacontakaihenagon.jwtauth.dto.LoginResponse;
 import dev.triacontakaihenagon.jwtauth.dto.UserRequest;
 import dev.triacontakaihenagon.jwtauth.dto.UserResponse;
+import dev.triacontakaihenagon.jwtauth.entity.Role;
 import dev.triacontakaihenagon.jwtauth.entity.User;
 import dev.triacontakaihenagon.jwtauth.service.JwtService;
 import dev.triacontakaihenagon.jwtauth.service.UserService;
@@ -30,6 +31,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public UserResponse register(@RequestBody @Valid UserRequest request) {
+        request.setRole(Role.USER);
         User user = new User(request);
         return new UserResponse(userService.createUser(user));
     }

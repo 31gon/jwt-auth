@@ -1,4 +1,4 @@
-package dev.triacontakaihenagon.jwtauth;
+package dev.triacontakaihenagon.jwtauth.security;
 
 import dev.triacontakaihenagon.jwtauth.service.JwtService;
 import jakarta.servlet.FilterChain;

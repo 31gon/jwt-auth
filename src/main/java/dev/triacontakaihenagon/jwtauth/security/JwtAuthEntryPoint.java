@@ -1,4 +1,4 @@
-package dev.triacontakaihenagon.jwtauth;
+package dev.triacontakaihenagon.jwtauth.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

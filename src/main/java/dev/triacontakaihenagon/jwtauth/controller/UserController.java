@@ -37,12 +37,6 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public UserResponse postUsers(@RequestBody @Valid UserRequest userRequest) {
-        User user = new User(userRequest);
-        return new UserResponse(userService.createUser(user));
-    }
-
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
